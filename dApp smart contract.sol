@@ -39,7 +39,7 @@ contract EVoting {
         electionCommission = msg.sender;
     }
 
-    // Add candidate before voting starts
+    // Add candidate before voting starts based on name
     function addCandidate(string memory _name) public onlyEC {
         require(!votingStarted, "Cannot add candidate after voting starts");
         require(bytes(_name).length > 0, "Candidate name required");
