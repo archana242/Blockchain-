@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>voteX - Login</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      transition: background 0.3s;
+    }
+    body.dark {
+      background: #181a1b;
+    }
+    .iphone-container {
+      width: 430px;
+      height: 932px;
+      background: #fff;
+      border-radius: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0;
+      margin: 30px 0;
+      transition: background 0.3s;
+    }
+    .iphone-container.dark {
+      background: #23272f;
+    }
+    .login-container {
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .login-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .login-title.dark {
+      color: #fff;
+    }
+    .input-group {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #636e72;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    body.dark .input-group label {
+      color: #b2bec3;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #dfe6e9;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s, background 0.3s, color 0.3s;
+      background: #fff;
+      color: #2d3436;
+    }
+    body.dark .input-group input {
+      background: #23272f;
+      color: #fff;
+      border: 1px solid #636e72;
+    }
+    .input-group input:focus {
+      border-color: #0984e3;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0984e3;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover {
+      background: #74b9ff;
+    }
+    .message {
+      margin-top: 1rem;
+      color: #d63031;
+      font-size: 1rem;
+      display: none;
+      transition: color 0.3s;
+    }
+    body.dark .message {
+      color: #fdcb6e;
+    }
+    /* Navigation bar dark mode */
+    #navBar {
+      transition: background 0.3s, border-top 0.3s;
+    }
+    .nav-link {
+      transition: color 0.3s;
+    }
+    body.dark #navBar {
+      background: #23272f !important;
+      border-top: 1px solid #181a1b !important;
+    }
+    body.dark .nav-link {
+      color: #b2bec3 !important;
+    }
+    body.dark .nav-link:active, body.dark .nav-link:focus {
+      color: #74b9ff !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone-container" style="position:relative;overflow:hidden;">
+    <!-- Back Button -->
+    <button onclick="window.location.href='role_selection.html'" title="Back" style="position:absolute;top:32px;left:18px;z-index:20;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:38px;height:38px;box-shadow:0 2px 8px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;">
+      <img src="https://img.icons8.com/ios-filled/28/000000/chevron-left.png" alt="Back" style="width:24px;height:24px;">
+    </button>
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <div class="login-container" style="margin-top:48px;">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div id="roleIcon" style="width:64px;height:64px;border-radius:50%;background:#e3f0fb;display:flex;align-items:center;justify-content:center;margin-bottom:0.7rem;">
+          <img id="roleImg" src="https://img.icons8.com/color/64/administrator-male.png" alt="Role Icon" style="width:44px;height:44px;border-radius:50%;" />
+        </div>
+        <div id="welcomeMsg" style="font-size:1.1rem;color:#636e72;margin-bottom:0.7rem;">Welcome back Admin</div>
+      </div>
+      <div class="login-title">voteX</div>
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="mailid">Mail ID</label>
+          <input type="email" id="mailid" name="mailid" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div style="text-align: left; margin-bottom: 1rem;">
+          <a href="forgot_password.html" style="color: #0984e3; text-decoration: none; font-size: 0.95rem;">Forgot password?</a>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+        <div class="message" id="message"></div>
+      </form>
+    </div>
+  </div>
+  <!-- Navigation Bar -->
+  <div id="navBar" style="position:fixed;left:50%;transform:translateX(-50%);bottom:0;height:56px;background:#fff;border-top:1px solid #e0e0e0;display:flex;justify-content:space-around;align-items:center;z-index:20;width:430px;max-width:100vw;">
+    <a href="role_selection.html" class="nav-link" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">🏠</span>
+      Home
+    </a>
+    <a href="troubleshoot.html" class="nav-link" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">❓</span>
+      Help
+    </a>
+    <a href="settings.html" class="nav-link" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">⚙️</span>
+      Settings
+    </a>
+  </div>
+  <script>
+    // Dark mode sync with settings (localStorage)
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('theme') === 'dark';
+      document.body.classList.toggle('dark', isDark);
+      const container = document.querySelector('.iphone-container');
+      if (container) container.classList.toggle('dark', isDark);
+      // Login title
+      const loginTitle = document.querySelector('.login-title');
+      if (loginTitle) loginTitle.classList.toggle('dark', isDark);
+    }
+    window.addEventListener('DOMContentLoaded', applyDarkMode);
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'theme') applyDarkMode();
+    });
+  </script>
+  <script>
+    // Role-based welcome message and icon
+    function getRoleFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('role') || 'admin';
+    }
+    function setRoleUI(role) {
+      const welcomeMsg = document.getElementById('welcomeMsg');
+      const roleImg = document.getElementById('roleImg');
+      if (role === 'admin') {
+        welcomeMsg.textContent = 'Welcome back Admin';
+        roleImg.src = 'https://img.icons8.com/color/64/administrator-male.png';
+        roleImg.alt = 'Admin Icon';
+      } else if (role === 'voter') {
+        welcomeMsg.textContent = 'Welcome back Voter';
+        roleImg.src = 'https://img.icons8.com/color/64/user-group-man-man.png';
+        roleImg.alt = 'Voter Icon';
+      } else if (role === 'auditor') {
+        welcomeMsg.textContent = 'Welcome back Auditor';
+        roleImg.src = 'https://img.icons8.com/color/64/inspection.png';
+        roleImg.alt = 'Auditor Icon';
+      }
+    }
+    setRoleUI(getRoleFromUrl());
+
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const mailid = form.mailid.value.trim();
+      const password = form.password.value.trim();
+      if (!mailid || !password) {
+        message.textContent = "Please fill in both fields.";
+        message.style.display = "block";
+        return;
+      }
+      // Admin login logic
+      if (mailid === "admin@gmail.com" && password === "admin") {
+        window.location.href = "admin_dashboard.html";
+        return;
+      }
+      // Voter login logic
+      if (mailid === "voter@gmail.com" && password === "voter") {
+        window.location.href = "voter_dashboard.html";
+        return;
+      }
+      // Auditor login logic
+      if (mailid === "auditor@gmail.com" && password === "auditor") {
+        window.location.href = "auditor_dashboard.html";
+        return;
+      }
+      // Simulate login for other users (example)
+      if (mailid === "user@example.com" && password === "password123") {
+        message.style.color = "#00b894";
+        message.textContent = "Login successful!";
+        message.style.display = "block";
+      } else {
+        message.style.color = "#d63031";
+        message.textContent = "Invalid credentials. Try again.";
+        message.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
