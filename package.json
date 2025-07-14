@@ -1,0 +1,12 @@
+{
+  "name": "hardhat-project",
+  "version": "1.0.0",
+  "description": "Sample Hardhat project with config",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.22.0"
+  }
+}
