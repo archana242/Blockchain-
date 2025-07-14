@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    // Force dark mode for this page
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('themeMode', 'dark');
+  </script>
+  <meta charset="UTF-8">
+  <title>voteX - Voter Dashboard</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      transition: background 0.3s;
+    }
+    .iphone-container {
+      width: 430px;
+      height: 932px;
+      background: #fff;
+      border-radius: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 60px;
+      margin: 30px 0;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 2.5rem;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    /* --- Root-level Dark Mode Styles --- */
+    html[data-theme='dark'] body,
+    body[data-theme='dark'],
+    body.darkmode {
+      background: #181a20 !important;
+    }
+    html[data-theme='dark'] .iphone-container,
+    .iphone-container[data-theme='dark'],
+    .iphone-container.darkmode {
+      background: #23242a !important;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45) !important;
+      border: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] .title,
+    .title[data-theme='dark'],
+    .title.darkmode {
+      color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] input,
+    input[data-theme='dark'],
+    input.darkmode,
+    html[data-theme='dark'] select,
+    select[data-theme='dark'],
+    select.darkmode {
+      background: #23242a !important;
+      color: #f5f6fa !important;
+      border: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] input:focus,
+    input[data-theme='dark']:focus,
+    input.darkmode:focus,
+    html[data-theme='dark'] select:focus,
+    select[data-theme='dark']:focus,
+    select.darkmode:focus {
+      border: 1.5px solid #0984e3 !important;
+    }
+    html[data-theme='dark'] label,
+    label[data-theme='dark'],
+    label.darkmode {
+      color: #b2bec3 !important;
+    }
+    html[data-theme='dark'] .iphone-container .title,
+    .iphone-container .title[data-theme='dark'],
+    .iphone-container .title.darkmode,
+    html[data-theme='dark'] .iphone-container label,
+    .iphone-container label[data-theme='dark'],
+    .iphone-container label.darkmode,
+    html[data-theme='dark'] .iphone-container input,
+    .iphone-container input[data-theme='dark'],
+    .iphone-container input.darkmode,
+    html[data-theme='dark'] .iphone-container select,
+    .iphone-container select[data-theme='dark'],
+    .iphone-container select.darkmode {
+      color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .iphone-container input::placeholder,
+    .iphone-container input::placeholder[data-theme='dark'],
+    .iphone-container input::placeholder.darkmode {
+      color: #b2bec3 !important;
+      opacity: 1;
+    }
+    html[data-theme='dark'] .iphone-container input,
+    .iphone-container input[data-theme='dark'],
+    .iphone-container input.darkmode,
+    html[data-theme='dark'] .iphone-container select,
+    .iphone-container select[data-theme='dark'],
+    .iphone-container select.darkmode {
+      background: #181a20 !important;
+      border: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] .iphone-container input:focus,
+    .iphone-container input:focus[data-theme='dark'],
+    .iphone-container input:focus.darkmode,
+    html[data-theme='dark'] .iphone-container select:focus,
+    .iphone-container select:focus[data-theme='dark'],
+    .iphone-container select:focus.darkmode {
+      border: 1.5px solid #0984e3 !important;
+    }
+    html[data-theme='dark'] .iphone-container input:disabled,
+    .iphone-container input:disabled[data-theme='dark'],
+    .iphone-container input:disabled.darkmode {
+      background: #23242a !important;
+      color: #636e72 !important;
+    }
+    html[data-theme='dark'] .iphone-container input:-webkit-autofill,
+    .iphone-container input:-webkit-autofill[data-theme='dark'],
+    .iphone-container input:-webkit-autofill.darkmode {
+      -webkit-box-shadow: 0 0 0 1000px #23242a inset !important;
+      -webkit-text-fill-color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .iphone-container input:-webkit-autofill:focus,
+    .iphone-container input:-webkit-autofill:focus[data-theme='dark'],
+    .iphone-container input:-webkit-autofill:focus.darkmode {
+      -webkit-box-shadow: 0 0 0 1000px #23242a inset !important;
+      -webkit-text-fill-color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .iphone-container input:-webkit-autofill::first-line,
+    .iphone-container input:-webkit-autofill::first-line[data-theme='dark'],
+    .iphone-container input:-webkit-autofill::first-line.darkmode {
+      color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .iphone-container input:-internal-autofill-selected,
+    .iphone-container input:-internal-autofill-selected[data-theme='dark'],
+    .iphone-container input:-internal-autofill-selected.darkmode {
+      background: #23242a !important;
+      color: #f5f6fa !important;
+    }
+    /* Navigation bar dark mode */
+    html[data-theme='dark'] body > div[style*="position:fixed"],
+    body[data-theme='dark'] > div[style*="position:fixed"],
+    body.darkmode > div[style*="position:fixed"] {
+      background: #23242a !important;
+      border-top: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] body > div[style*="position:fixed"] a,
+    body[data-theme='dark'] > div[style*="position:fixed"] a,
+    body.darkmode > div[style*="position:fixed"] a {
+      color: #b2bec3 !important;
+    }
+    @media (max-width: 430px) {
+      .iphone-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone-container" id="iphoneContainer">
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <!-- iPhone-style Back Button near Dynamic Island -->
+    <div id="backBtnContainer" style="position:absolute;top:32px;left:24px;z-index:11;">
+      <button onclick="window.location.href='voter_dashboard.html'" aria-label="Back to Dashboard" style="background:rgba(245,246,250,0.85);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.10);cursor:pointer;transition:background 0.2s;outline:none;padding:0;">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="13" r="13" fill="#fff"/>
+          <path d="M15.5 8L11.5 13L15.5 18" stroke="#0984e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <script>
+      // Dynamic dark mode for back button and dynamic island
+      function updateBackBtnForMode() {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const backBtn = document.querySelector('#backBtnContainer button');
+        const svgCircle = backBtn.querySelector('circle');
+        if (prefersDark) {
+          backBtn.style.background = 'rgba(35,36,42,0.85)';
+          svgCircle.setAttribute('fill', '#23242a');
+        } else {
+          backBtn.style.background = 'rgba(245,246,250,0.85)';
+          svgCircle.setAttribute('fill', '#fff');
+        }
+      }
+      updateBackBtnForMode();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBackBtnForMode);
+    </script>
+    <!-- Status Bar -->
+    <div style="position:absolute;top:0;left:0;width:100%;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:1.05rem;color:#222;z-index:30;letter-spacing:0.5px;">
+      <span id="status-time" style="font-weight:500;">9:41</span>
+      <span style="display:flex;align-items:center;gap:10px;">
+        <span style="display:flex;align-items:center;gap:2px;">
+          <span style="display:inline-block;width:10px;height:10px;background:#0f0;border-radius:50%;margin-right:2px;"></span>
+          <span style="font-size:0.95rem;">4G</span>
+        </span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/cell-phone-signal.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/wifi.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:22px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/battery--v1.png') no-repeat center/contain;"></span>
+        <span style="font-size:0.95rem;">85%</span>
+      </span>
+    </div>
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <div style="width:90%;max-width:340px;margin:48px auto 0.5rem auto;">
+      <div style="display:flex;align-items:center;background:#f1f2f6;border-radius:24px;padding:0.4rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <img src="https://img.icons8.com/color/48/user-group-man-man.png" alt="Profile Icon" style="width:40px;height:40px;border-radius:50%;background:#e3f0fb;padding:4px;margin-right:0.7rem;">
+        <input type="text" placeholder="Search..." style="flex:1;border:none;background:transparent;font-size:1.05rem;padding:0.5rem 0;outline:none;color:#2d3436;">
+        <button style="background:transparent;border:none;outline:none;cursor:pointer;padding:0;margin-left:0.7rem;" title="Search">
+          <img src="https://img.icons8.com/ios-filled/28/0984e3/search--v1.png" alt="Search" style="width:28px;height:28px;">
+        </button>
+        <button onclick="window.location.href='settings.html'" title="Settings" style="background:transparent;border:none;outline:none;cursor:pointer;padding:0;margin-left:0.7rem;display:flex;align-items:center;">
+          <img src="https://img.icons8.com/ios-filled/28/000000/settings--v1.png" alt="Settings" style="width:28px;height:28px;">
+        </button>
+      </div>
+    </div>
+    <div class="title">VOTER DASHBOARD</div>
+    <div style="font-size:1.1rem;color:#636e72;margin-bottom:2rem;">Welcome, Voter!<br>Here you can view and participate in elections.</div>
+    <div style="width:90%;max-width:340px;margin:0 auto 1.5rem auto;">
+      <label for="electionSelect" style="display:block;margin-bottom:0.5rem;font-size:1.05rem;color:#2d3436;font-weight:500;">Select Election</label>
+      <select id="electionSelect" style="width:100%;padding:0.7rem;border:1px solid #dfe6e9;border-radius:6px;font-size:1rem;outline:none;">
+        <option value="">-- Choose an election --</option>
+        <option value="loksabha">Lok Sabha 2025</option>
+        <option value="assembly">State Assembly 2025</option>
+        <option value="local">Local Body 2025</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.2rem;width:90%;max-width:340px;margin:0 auto 2.5rem auto;">
+      <button id="voteNowBtn" disabled onclick="window.location.href='vote_now.html'" style="padding:1rem 0;font-size:1.1rem;font-weight:500;background:#0984e3;color:#fff;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:0.8rem;justify-content:center;opacity:0.6;">
+        <img src='https://img.icons8.com/ios-filled/32/ffffff/plus-math.png' alt='Vote' style='width:28px;height:28px;'>
+        Vote Now
+      </button>
+      <button id="viewCandidatesBtn" disabled style="padding:1rem 0;font-size:1.1rem;font-weight:500;background:#0984e3;color:#fff;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:0.8rem;justify-content:center;opacity:0.6;">
+        <img src='https://img.icons8.com/color/32/list.png' alt='View Candidates' style='width:28px;height:28px;'>
+        View Candidates
+      </button>
+      <script>
+        // Add click event to View Candidates button
+        document.getElementById('viewCandidatesBtn').onclick = function() {
+          if (!this.disabled) {
+            window.location.href = 'view_candidates.html';
+          }
+        };
+      </script>
+      </button>
+      <button id="myVotesBtn" disabled onclick="window.location.href='my_votes.html'" style="padding:1rem 0;font-size:1.1rem;font-weight:500;background:#0984e3;color:#fff;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:0.8rem;justify-content:center;opacity:0.6;">
+        <img src='https://img.icons8.com/color/32/checked-checkbox.png' alt='My Votes' style='width:28px;height:28px;'>
+        My Votes
+      </button>
+      <button id="viewResultBtn" disabled onclick="window.open('view_result.html', '_blank', 'width=450,height=400')" style="padding:1rem 0;font-size:1.1rem;font-weight:500;background:#00b894;color:#fff;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:0.8rem;justify-content:center;opacity:0.6;">
+        <img src='https://img.icons8.com/color/32/trophy.png' alt='View Result' style='width:28px;height:28px;'>
+        View Result
+      </button>
+      <script>
+        // Add click event to View Result button
+        document.getElementById('viewResultBtn').onclick = function() {
+          if (!this.disabled) {
+            window.location.href = 'view_result.html';
+          }
+        };
+      </script>
+      </button>
+      <button onclick="window.location.href='login page.html'" style="padding:1rem 0;font-size:1.1rem;font-weight:500;background:#d63031;color:#fff;border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:0.8rem;justify-content:center;">
+        <img src='https://img.icons8.com/color/32/logout-rounded-left.png' alt='Logout' style='width:28px;height:28px;'>
+        Logout
+      </button>
+  <script>
+    // Helper: set dark mode class on container and body
+    function setDarkModeCompat() {
+      const theme = localStorage.getItem('themeMode');
+      const container = document.getElementById('iphoneContainer');
+      if (theme === 'dark') {
+        document.body.classList.add('darkmode');
+        if (container) container.classList.add('darkmode');
+      } else {
+        document.body.classList.remove('darkmode');
+        if (container) container.classList.remove('darkmode');
+      }
+    }
+    setDarkModeCompat();
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'themeMode') setDarkModeCompat();
+    });
+    // Enable/disable action buttons based on election selection
+    const electionSelect = document.getElementById('electionSelect');
+    const voteNowBtn = document.getElementById('voteNowBtn');
+    const viewCandidatesBtn = document.getElementById('viewCandidatesBtn');
+    const myVotesBtn = document.getElementById('myVotesBtn');
+    const viewResultBtn = document.getElementById('viewResultBtn');
+    function updateActionButtons() {
+      const enabled = electionSelect.value !== '';
+      [voteNowBtn, viewCandidatesBtn, myVotesBtn, viewResultBtn].forEach(btn => {
+        btn.disabled = !enabled;
+        btn.style.opacity = enabled ? '1' : '0.6';
+        btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+      });
+    }
+    electionSelect.addEventListener('change', updateActionButtons);
+    updateActionButtons();
+  </script>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:32px;text-align:center;width:100%;font-size:0.98rem;color:#b2bec3;letter-spacing:1px;">
+      License: KBA-2025-XYZ123 | © 2025 KBA<br>Kottayam, Kerala, India
+    </div>
+  </div>
+  <!-- Navigation Bar -->
+  <div style="position:fixed;left:50%;transform:translateX(-50%);bottom:0;height:56px;background:#fff;border-top:1px solid #e0e0e0;display:flex;justify-content:space-around;align-items:center;z-index:20;width:430px;max-width:100vw;">
+    <a href="role_selection.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">🏠</span>
+      Home
+    </a>
+    <a href="troubleshoot.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">❓</span>
+      Help
+    </a>
+    <a href="contact.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">📞</span>
+      Contact
+    </a>
+  </div>
+</body>
+</html>
