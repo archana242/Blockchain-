@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>voteX - View Result</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      transition: background 0.3s;
+    }
+    .iphone-container {
+      width: 430px;
+      max-width: 98vw;
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 32px 0 24px 0;
+      margin: 32px auto 0 auto;
+      overflow: hidden;
+      transition: background 0.3s, box-shadow 0.3s;
+      border-top: 2px solid #0984e3;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .winner-box {
+      margin-bottom: 1.2rem;
+      padding: 1rem 1.2rem;
+      background: #00b894;
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,184,148,0.10);
+      text-align: center;
+      letter-spacing: 1px;
+      transition: background 0.3s;
+    }
+    .profiles {
+      width: 92%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .profile-card {
+      display: flex;
+      align-items: center;
+      background: #f1f2f6;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 0.9rem 1rem;
+      gap: 1.1rem;
+      transition: background 0.3s;
+    }
+    .profile-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0984e3;
+      background: #fff;
+    }
+    .profile-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .profile-name {
+      font-size: 1.13rem;
+      font-weight: 600;
+      color: #2d3436;
+    }
+    .profile-party {
+      font-size: 1.01rem;
+      color: #0984e3;
+      font-weight: 500;
+    }
+    .profile-desc {
+      font-size: 0.97rem;
+      color: #636e72;
+    }
+    .result-table {
+      width: 92%;
+      max-width: 380px;
+      background: #f1f2f6;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.01rem;
+      background: transparent;
+    }
+    th, td {
+      padding: 0.55rem 0.4rem;
+      text-align: left;
+      border-bottom: 1px solid #dfe6e9;
+      color: #2d3436;
+      word-break: break-all;
+    }
+    th {
+      background: #0984e3;
+      color: #fff;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    /* Dark mode styles */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #181a20;
+      }
+      .iphone-container {
+        background: #23242a;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+        border-top: 2px solid #0984e3;
+      }
+      .title {
+        color: #f5f6fa;
+      }
+      .winner-box {
+        background: #00b894;
+        color: #fff;
+      }
+      .profiles {
+        /* no change */
+      }
+      .profile-card {
+        background: #23242a;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      }
+      .profile-name {
+        color: #f5f6fa;
+      }
+      .profile-party {
+        color: #74b9ff;
+      }
+      .profile-desc {
+        color: #b2bec3;
+      }
+      .result-table {
+        background: #23242a;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      }
+      th {
+        background: #0984e3;
+        color: #fff;
+      }
+      td {
+        color: #f5f6fa;
+        border-bottom: 1px solid #35363a;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <!-- iPhone-style Back Button near Dynamic Island -->
+    <div style="position:absolute;top:32px;left:24px;z-index:11;">
+      <button onclick="window.location.href='voter_dashboard.html'" aria-label="Back to Dashboard" style="background:rgba(245,246,250,0.85);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.10);cursor:pointer;transition:background 0.2s;outline:none;padding:0;">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="13" r="13" fill="#fff"/>
+          <path d="M15.5 8L11.5 13L15.5 18" stroke="#0984e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="title">ELECTION RESULT</div>
+    <div id="winnerBox" class="winner-box" style="display:none;"></div>
+    <div class="profiles" id="profilesContainer">
+      <!-- Candidate profiles will be inserted here by JS -->
+    </div>
+    <div class="result-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Candidate</th>
+            <th>Party</th>
+            <th>Votes</th>
+          </tr>
+        </thead>
+        <tbody id="resultTableBody">
+          <!-- Rows will be inserted by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    // Candidate data with profiles
+    const candidates = [
+      {
+        name: "Thomas Chazhikadan",
+        party: "Kerala Congress (M)",
+        votes: 42,
+        photo: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Thomas_Chazhikadan.jpg",
+        desc: "Senior leader, experienced parliamentarian, and advocate for rural development."
+      },
+      {
+        name: "Thiruvanchoor Radhakrishnan",
+        party: "Indian National Congress",
+        votes: 36,
+        photo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Thiruvanchoor_Radhakrishnan.jpg",
+        desc: "Veteran politician, former minister, and champion of social justice."
+      },
+      {
+        name: "Jose K. Mani",
+        party: "Kerala Congress (M)",
+        votes: 22,
+        photo: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Jose_K_Mani_2017.jpg",
+        desc: "Dynamic youth leader, MP, and proponent of education reforms."
+      }
+    ];
+    // Sort by votes descending for ranking
+    candidates.sort((a, b) => b.votes - a.votes);
+    // Show winner box
+    const winnerBox = document.getElementById('winnerBox');
+    if (candidates.length > 0) {
+      winnerBox.style.display = 'block';
+      winnerBox.innerHTML = `🏆 Winner: <span style="font-weight:700;">${candidates[0].name}</span> <br><span style="font-size:0.98rem;font-weight:400;">(${candidates[0].party})</span> <br><span style='font-size:0.95rem;font-weight:400;'>Votes: ${candidates[0].votes}</span>`;
+    }
+    // Render candidate profiles
+    const profilesContainer = document.getElementById('profilesContainer');
+    candidates.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'profile-card';
+      card.innerHTML = `
+        <img src="${c.photo}" alt="${c.name}">
+        <div class="profile-info">
+          <div class="profile-name">${c.name}</div>
+          <div class="profile-party">${c.party}</div>
+          <div class="profile-desc">${c.desc}</div>
+        </div>
+      `;
+      profilesContainer.appendChild(card);
+    });
+    // Fill table with rankings
+    const tbody = document.getElementById('resultTableBody');
+    candidates.forEach((r, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td style='font-weight:600;'>${i+1}</td><td>${r.name}</td><td>${r.party}</td><td>${r.votes}</td>`;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
+

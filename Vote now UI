@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>voteX - Vote Now</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script>
+    // Theme switching logic for dark mode compatibility
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    }
+    // Check localStorage for theme set by settings page
+    const savedTheme = localStorage.getItem('themeMode');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+    // Listen for theme changes from settings (optional, for live update)
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'themeMode') {
+        applyTheme(e.newValue);
+      }
+    });
+    // Helper: set dark mode class on container and body
+    function setDarkModeCompat() {
+      const theme = localStorage.getItem('themeMode');
+      const container = document.querySelector('.iphone-container');
+      if (theme === 'dark') {
+        document.body.classList.add('darkmode');
+        if (container) container.classList.add('darkmode');
+      } else {
+        document.body.classList.remove('darkmode');
+        if (container) container.classList.remove('darkmode');
+      }
+    }
+    setDarkModeCompat();
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'themeMode') setDarkModeCompat();
+    });
+  </script>
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      transition: background 0.3s;
+    }
+    .iphone-container {
+      width: 430px;
+      min-height: 932px;
+      background: #fff;
+      border-radius: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 60px;
+      margin: 30px 0;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 2.2rem;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .candidates-list {
+      width: 92%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .candidate-card {
+      background: #f1f2f6;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 1.2rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .candidate-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e3f0fb;
+      border: 2px solid #0984e3;
+    }
+    .candidate-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .candidate-name {
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: #2d3436;
+    }
+    .candidate-party {
+      font-size: 1.05rem;
+      color: #636e72;
+      margin-bottom: 0.2rem;
+    }
+    .candidate-symbol {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    .vote-radio {
+      width: 26px;
+      height: 26px;
+      accent-color: #0984e3;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+    .vote-btn {
+      width: 92%;
+      max-width: 380px;
+      padding: 1rem 0;
+      background: #0984e3;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .vote-btn:disabled {
+      background: #b2bec3;
+      cursor: not-allowed;
+    }
+    /* --- Root-level Dark Mode Styles --- */
+    html[data-theme='dark'] body,
+    body[data-theme='dark'],
+    body.darkmode {
+      background: #181a20 !important;
+    }
+    html[data-theme='dark'] .iphone-container,
+    .iphone-container[data-theme='dark'],
+    .iphone-container.darkmode {
+      background: #23242a !important;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45) !important;
+      border: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] .title,
+    .title[data-theme='dark'],
+    .title.darkmode {
+      color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .candidate-card,
+    .candidate-card[data-theme='dark'],
+    .candidate-card.darkmode {
+      background: #23242a !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+    }
+    html[data-theme='dark'] .candidate-name,
+    .candidate-name[data-theme='dark'],
+    .candidate-name.darkmode {
+      color: #f5f6fa !important;
+    }
+    html[data-theme='dark'] .candidate-party,
+    .candidate-party[data-theme='dark'],
+    .candidate-party.darkmode {
+      color: #b2bec3 !important;
+    }
+    html[data-theme='dark'] .vote-btn,
+    .vote-btn[data-theme='dark'],
+    .vote-btn.darkmode {
+      background: #0984e3 !important;
+      color: #fff !important;
+    }
+    html[data-theme='dark'] .vote-btn:disabled,
+    .vote-btn:disabled[data-theme='dark'],
+    .vote-btn:disabled.darkmode {
+      background: #35363a !important;
+      color: #b2bec3 !important;
+    }
+    html[data-theme='dark'] .candidate-img,
+    .candidate-img[data-theme='dark'],
+    .candidate-img.darkmode {
+      background: #23242a !important;
+      border-color: #0984e3 !important;
+    }
+    html[data-theme='dark'] .iphone-container input,
+    .iphone-container input[data-theme='dark'],
+    .iphone-container input.darkmode {
+      background: #23242a !important;
+      color: #f5f6fa !important;
+      border: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] .iphone-container input:focus,
+    .iphone-container input:focus[data-theme='dark'],
+    .iphone-container input:focus.darkmode {
+      border: 1.5px solid #0984e3 !important;
+    }
+    html[data-theme='dark'] .iphone-container input::placeholder,
+    .iphone-container input::placeholder[data-theme='dark'],
+    .iphone-container input::placeholder.darkmode {
+      color: #b2bec3 !important;
+      opacity: 1;
+    }
+    /* Navigation bar dark mode */
+    html[data-theme='dark'] body > div[style*="position:fixed"],
+    body[data-theme='dark'] > div[style*="position:fixed"],
+    body.darkmode > div[style*="position:fixed"] {
+      background: #23242a !important;
+      border-top: 1px solid #35363a !important;
+    }
+    html[data-theme='dark'] body > div[style*="position:fixed"] a,
+    body[data-theme='dark'] > div[style*="position:fixed"] a,
+    body.darkmode > div[style*="position:fixed"] a {
+      color: #b2bec3 !important;
+    }
+    @media (max-width: 430px) {
+      .iphone-container {
+        width: 100vw;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- Status Bar -->
+    <div style="position:absolute;top:0;left:0;width:100%;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:1.05rem;color:#222;z-index:30;letter-spacing:0.5px;">
+      <span id="status-time" style="font-weight:500;">9:41</span>
+      <span style="display:flex;align-items:center;gap:10px;">
+        <span style="display:flex;align-items:center;gap:2px;">
+          <span style="display:inline-block;width:10px;height:10px;background:#0f0;border-radius:50%;margin-right:2px;"></span>
+          <span style="font-size:0.95rem;">4G</span>
+        </span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/cell-phone-signal.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/wifi.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:22px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/battery--v1.png') no-repeat center/contain;"></span>
+        <span style="font-size:0.95rem;">85%</span>
+      </span>
+    </div>
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <!-- Back Button -->
+    <button onclick="window.location.href='voter_dashboard.html'" title="Back" style="position:absolute;top:32px;left:18px;z-index:20;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:38px;height:38px;box-shadow:0 2px 8px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;">
+      <img src="https://img.icons8.com/ios-filled/28/000000/chevron-left.png" alt="Back" style="width:24px;height:24px;">
+    </button>
+    <div class="title" style="margin-top:70px;">VOTE NOW</div>
+    <form id="voteForm" class="candidates-list">
+      <!-- Candidate cards will be inserted by JS -->
+    </form>
+    <button id="submitVoteBtn" class="vote-btn" disabled>Submit Vote</button>
+    <div id="voteMessage" style="text-align:center;color:#0984e3;font-size:1.08rem;margin-top:0.5rem;"></div>
+    <div style="position:absolute;left:0;right:0;bottom:32px;text-align:center;width:100%;font-size:0.98rem;color:#b2bec3;letter-spacing:1px;">
+      License: KBA-2025-XYZ123 | © 2025 KBA<br>Kottayam, Kerala, India
+    </div>
+  </div>
+  <!-- Navigation Bar -->
+  <div style="position:fixed;left:50%;transform:translateX(-50%);bottom:0;height:56px;background:#fff;border-top:1px solid #e0e0e0;display:flex;justify-content:space-around;align-items:center;z-index:20;width:430px;max-width:100vw;">
+    <a href="role_selection.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">🏠</span>
+      Home
+    </a>
+    <a href="troubleshoot.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">❓</span>
+      Help
+    </a>
+    <a href="contact.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">📞</span>
+      Contact
+    </a>
+  </div>
+  <script>
+    // Example candidate data (replace with real data as needed)
+    const candidates = [
+      {
+        name: "Thomas Chazhikadan",
+        party: "Party A",
+        symbol: "https://img.icons8.com/color/48/000000/flag.png",
+        img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Thomas_Chazhikadan_2020.jpg"
+      },
+      {
+        name: "Thiruvanchoor Radhakrishnan",
+        party: "Party B",
+        symbol: "https://img.icons8.com/color/48/000000/lotus.png",
+        img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Thiruvanchoor_Radhakrishnan.jpg"
+      },
+      {
+        name: "Jose K. Mani",
+        party: "Party C",
+        symbol: "https://img.icons8.com/color/48/000000/star.png",
+        img: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Jose_K_Mani_2021.jpg"
+      }
+    ];
+    const voteForm = document.getElementById('voteForm');
+    const submitVoteBtn = document.getElementById('submitVoteBtn');
+    const voteMessage = document.getElementById('voteMessage');
+    // Render candidate cards
+    candidates.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'candidate-card';
+      div.innerHTML = `
+        <img src="${c.img}" alt="${c.name}" class="candidate-img">
+        <div class="candidate-info">
+          <span class="candidate-name">${c.name}</span>
+          <span class="candidate-party">${c.party} <img src="${c.symbol}" class="candidate-symbol" alt="Symbol"></span>
+        </div>
+        <input type="radio" name="vote" value="${idx}" class="vote-radio">
+      `;
+      voteForm.appendChild(div);
+    });
+    // Enable submit button when a candidate is selected
+    voteForm.addEventListener('change', function(e) {
+      if (e.target.name === 'vote') {
+        submitVoteBtn.disabled = false;
+      }
+    });
+    // Handle vote submission
+    submitVoteBtn.addEventListener('click', function() {
+      const selected = voteForm.querySelector('input[name="vote"]:checked');
+      if (!selected) return;
+      const c = candidates[selected.value];
+      // Store vote index in localStorage
+      localStorage.setItem('myVoteIdx', selected.value);
+      voteMessage.textContent = `You have voted for ${c.name} (${c.party})!`;
+      submitVoteBtn.disabled = true;
+      setTimeout(() => {
+        voteMessage.textContent = '';
+        window.location.href = 'voter_dashboard.html';
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
