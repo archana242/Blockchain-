@@ -1,0 +1,57 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>voteX - Welcome</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f1f2f6;
+    }
+    .container {
+      text-align: center;
+    }
+    .container h1 {
+      font-size: 2.5rem;
+      color: #2d3436;
+    }
+    .btn-group {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .btn-group a {
+      text-decoration: none;
+      background: #0984e3;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+    .btn-group a:hover {
+      background: #74b9ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to voteX</h1>
+    <div class="btn-group">
+      <a href="login.html?role=admin">Login as Admin</a>
+      <a href="login.html?role=voter">Login as Voter</a>
+      <a href="login.html?role=auditor">Login as Auditor</a>
+    </div>
+  </div>
+</body>
+</html>

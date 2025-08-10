@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>voteX - Login</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- Back Button -->
+    <button onclick="window.location.href='index.html'" class="back-btn" title="Back">
+      <img src="https://img.icons8.com/ios-filled/28/000000/chevron-left.png" alt="Back">
+    </button>
+
+    <!-- Dynamic Island -->
+    <div class="dynamic-island">
+      <div class="dot"></div>
+      <div class="bar"></div>
+    </div>
+
+    <div class="login-container">
+      <div class="role-box">
+        <img id="roleImg" src="https://img.icons8.com/color/64/administrator-male.png" alt="Role Icon" />
+        <div id="welcomeMsg">Welcome back Admin</div>
+      </div>
+
+      <div class="login-title">voteX</div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="mailid">Mail ID</label>
+          <input type="email" id="mailid" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </div>
+
+        <div class="forgot-link">
+          <a href="forgot_password.html">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+        <div class="message" id="message"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="navBar" class="bottom-nav">
+    <a href="index.html" class="nav-link">🏠<br>Home</a>
+    <a href="troubleshoot.html" class="nav-link">❓<br>Help</a>
+    <a href="settings.html" class="nav-link">⚙️<br>Settings</a>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
