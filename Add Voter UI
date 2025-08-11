@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>voteX - Add Voter</title>
+  <meta name="viewport" content="width=430, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .iphone-container {
+      width: 430px;
+      height: 932px;
+      background: #fff;
+      border-radius: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 60px;
+      margin: 30px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #2d3436;
+      margin-bottom: 2.2rem;
+      letter-spacing: 2px;
+    }
+    .form-group {
+      width: 90%;
+      max-width: 340px;
+      background: #f1f2f6;
+      border-radius: 16px;
+      padding: 2rem 1.2rem 1.5rem 1.2rem;
+      margin: 0 auto 2.5rem auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    label {
+      font-size: 1.05rem;
+      color: #636e72;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+    input, select {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #dfe6e9;
+      font-size: 1.08rem;
+      outline: none;
+      background: #fff;
+      color: #2d3436;
+      transition: border 0.2s;
+    }
+    input:focus, select:focus {
+      border: 1.5px solid #0984e3;
+    }
+    .submit-btn {
+      margin-top: 1.2rem;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background: #0984e3;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover {
+      background: #1565c0;
+    }
+    /* Status bar and dynamic island styles reused from dashboard */
+  </style>
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- Status Bar -->
+    <div style="position:absolute;top:0;left:0;width:100%;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:1.05rem;color:#222;z-index:30;letter-spacing:0.5px;">
+      <span id="status-time" style="font-weight:500;">9:41</span>
+      <span style="display:flex;align-items:center;gap:10px;">
+        <span style="display:flex;align-items:center;gap:2px;">
+          <span style="display:inline-block;width:10px;height:10px;background:#0f0;border-radius:50%;margin-right:2px;"></span>
+          <span style="font-size:0.95rem;">4G</span>
+        </span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/cell-phone-signal.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:18px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/wifi.png') no-repeat center/contain;"></span>
+        <span style="display:inline-block;width:22px;height:12px;background:url('https://img.icons8.com/ios-filled/50/000000/battery--v1.png') no-repeat center/contain;"></span>
+        <span style="font-size:0.95rem;">85%</span>
+      </span>
+    </div>
+    <!-- Dynamic Island -->
+    <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:120px;height:36px;background:#111;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:10;display:flex;align-items:center;justify-content:center;">
+      <div style="width:16px;height:16px;background:#222;border-radius:50%;margin-right:8px;"></div>
+      <div style="width:40px;height:8px;background:#222;border-radius:4px;"></div>
+    </div>
+    <!-- Back Button -->
+    <button onclick="window.location.href='admin_dashboard.html'" title="Back" style="position:absolute;top:32px;left:18px;z-index:20;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:38px;height:38px;box-shadow:0 2px 8px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;">
+      <img src="https://img.icons8.com/ios-filled/28/000000/chevron-left.png" alt="Back" style="width:24px;height:24px;">
+    </button>
+    <div class="title" style="margin-top:70px;">ADD VOTER</div>
+    <form class="form-group" id="addVoterForm" autocomplete="off">
+      <div class="form-row">
+        <label for="voterName">Name</label>
+        <input type="text" id="voterName" name="voterName" required maxlength="50" placeholder="Enter full name">
+      </div>
+      <div class="form-row">
+        <label for="voterAge">Age</label>
+        <input type="number" id="voterAge" name="voterAge" required min="18" max="120" placeholder="Enter age">
+      </div>
+      <div class="form-row">
+        <label for="voterDOB">Date of Birth</label>
+        <input type="date" id="voterDOB" name="voterDOB" required>
+      </div>
+      <div class="form-row">
+        <label for="voterConstituency">Constituency</label>
+        <input type="text" id="voterConstituency" name="voterConstituency" required maxlength="40" placeholder="Enter constituency">
+      </div>
+      <div class="form-row">
+        <label for="voterElectoralId">Electoral ID</label>
+        <input type="text" id="voterElectoralId" name="voterElectoralId" required maxlength="20" placeholder="Enter electoral ID">
+      </div>
+      <!-- Party Symbol option removed as requested -->
+      <button type="submit" class="submit-btn">Add Voter</button>
+    </form>
+    <div id="formMessage" style="text-align:center;color:#0984e3;font-size:1.08rem;margin-top:0.5rem;"></div>
+    <div style="position:absolute;left:0;right:0;bottom:32px;text-align:center;width:100%;font-size:0.98rem;color:#b2bec3;letter-spacing:1px;">
+      License: KBA-2025-XYZ123 | © 2025 KBA<br>Kottayam, Kerala, India
+    </div>
+  </div>
+  <!-- Navigation Bar -->
+  <div style="position:fixed;left:50%;transform:translateX(-50%);bottom:0;height:56px;background:#fff;border-top:1px solid #e0e0e0;display:flex;justify-content:space-around;align-items:center;z-index:20;width:430px;max-width:100vw;">
+    <a href="role_selection.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">🏠</span>
+      Home
+    </a>
+    <a href="troubleshoot.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">❓</span>
+      Help
+    </a>
+    <a href="contact.html" style="text-decoration:none;color:#636e72;display:flex;flex-direction:column;align-items:center;font-size:0.95rem;">
+      <span style="font-size:1.5rem;">📞</span>
+      Contact
+    </a>
+  </div>
+  <script>
+    // Toast notification function (top of interface)
+    function showToast(message) {
+      let toast = document.getElementById('customToast');
+      let container = document.querySelector('.iphone-container');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'customToast';
+        toast.style.position = 'absolute';
+        toast.style.left = '50%';
+        toast.style.top = '32px';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.background = 'rgba(40,40,40,0.95)';
+        toast.style.color = '#fff';
+        toast.style.padding = '14px 32px';
+        toast.style.borderRadius = '24px';
+        toast.style.fontSize = '1.08rem';
+        toast.style.boxShadow = '0 2px 12px rgba(0,0,0,0.18)';
+        toast.style.zIndex = '100';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        if (container) container.appendChild(toast);
+        else document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 1400);
+    }
+
+    document.getElementById('addVoterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showToast('Voter added successfully');
+      setTimeout(function() {
+        window.location.href = 'admin_dashboard.html';
+      }, 1400);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
